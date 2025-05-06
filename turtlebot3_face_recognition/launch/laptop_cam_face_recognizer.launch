@@ -1,0 +1,21 @@
+<launch>
+    <!-- Laptop camera face recognizer node -->
+    <node pkg="turtlebot3_face_recognition" 
+          type="laptop_cam_face_recognizer.py" 
+          name="laptop_cam_face_recognizer" 
+          output="screen">
+          
+        <!-- Parameters -->
+        <param name="haar_path" value="$(find turtlebot3_face_recognition)/data/haarcascade_frontalface_default.xml"/>
+        <param name="image_folder" value="$(find turtlebot3_face_recognition)/data/"/>
+    </node>
+
+    <!-- Optional: View the camera feed with recognized faces -->
+    <node pkg="image_view" 
+          type="image_view" 
+          name="image_view"
+          output="screen"
+          launch-prefix="bash -c 'export DISPLAY=${DISPLAY:-:0}; export QT_X11_NO_MITSHM=1; export XAUTHORITY=~/.Xauthority; $0 $@' ">
+        <remap from="image" to="/laptop_cam/faces"/>
+    </node>
+</launch>

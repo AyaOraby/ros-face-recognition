@@ -1,0 +1,14 @@
+<launch>
+    <!-- Start TurtleBot3 -->
+    <include file="$(find turtlebot3_bringup)/launch/turtlebot3_robot.launch" />
+    
+    <!-- Face detection node -->
+    <node pkg="turtlebot3_face_recognition" type="detect_face_video.py" name="face_detector" output="screen">
+        <param name="haar_path" value="$(find turtlebot3_face_recognition)/data/haarcascade_frontalface_default.xml" />
+    </node>
+    
+    <!-- Image viewer to see the result -->
+    <node pkg="image_view" type="image_view" name="image_view" output="screen">
+        <remap from="image" to="/face_detector/output_image" />
+    </node>
+</launch>

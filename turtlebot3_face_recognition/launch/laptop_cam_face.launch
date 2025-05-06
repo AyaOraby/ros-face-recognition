@@ -1,0 +1,15 @@
+<launch>
+    <!-- Face Detection Node -->
+    <node pkg="turtlebot3_face_recognition" 
+          type="laptop_cam_face_detection.py" 
+          name="laptop_face_detector" 
+          output="screen">
+        <param name="haar_path" 
+               value="$(find turtlebot3_face_recognition)/data/haarcascade_frontalface_default.xml"/>
+    </node>
+
+    <!-- Local Display -->
+    <node pkg="image_view" type="image_view" name="laptop_cam_view">
+        <remap from="image" to="/laptop_cam/faces"/>
+    </node>
+</launch>
